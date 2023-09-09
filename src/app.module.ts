@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProfesorModule } from './profesor/profesor.module';
 import { EscuelaModule } from './escuela/escuela.module';
+import { ClasesModule } from './clases/clases.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { EscuelaModule } from './escuela/escuela.module';
     CiudadModule,
     ProfesorModule,
     EscuelaModule,
+    ClasesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
