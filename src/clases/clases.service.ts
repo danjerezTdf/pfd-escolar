@@ -4,6 +4,7 @@ import { CreateClaseDto } from './dto/create-clase.dto';
 import { UpdateClaseDto } from './dto/update-clase.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Clase } from './entities/clase.entity';
+import { error } from 'console';
 
 @Injectable()
 export class ClasesService {
@@ -66,7 +67,25 @@ export class ClasesService {
       return `OK ${claseVieja} ----> ${updateClaseDto.nombre}`;
     }
   }
-  // deleteClase();
+  async deleteClase(id: number): Promise<any> {
+    try {
+      const criterio: FindOneOptions = { where: { id: id } };
+      const clase: Clase = await this.claseRepository.findOne(criterio);
+      if (!clase) throw new Error('No se elimina clase');
+      else {
+        await this.claseRepository.remove(clase);
+        return { id: id, message: 'se elimino clase' };
+      }
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          message: 'Error al Eliminar' + error,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+  }
 
   // create(createClaseDto: CreateClaseDto) {
   //   return 'This action adds a new clase';

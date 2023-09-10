@@ -31,8 +31,8 @@ export class ClasesController {
     return this.clasesService.createClase(createClaseDto);
   }
   @Put('update/:id')
-  async updateClase(@Param('id') id, @Body() clase: UpdateClaseDto) {
-    return this.clasesService.updateClase(id, clase);
+  async updateClase(@Param('id') id, @Body() updateClase: UpdateClaseDto) {
+    return this.clasesService.updateClase(updateClase, id);
   }
   @Delete('remove/:id')
   removeClase(@Param('id') id: number) {
