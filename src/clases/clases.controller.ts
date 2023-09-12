@@ -22,7 +22,7 @@ export class ClasesController {
     return await this.clasesService.findAllClase();
   }
 
-  @Get('id')
+  @Get(':id')
   async getById(@Param('id') id: number): Promise<Clase> {
     return await this.clasesService.findOneClase(id);
   }
@@ -38,29 +38,4 @@ export class ClasesController {
   removeClase(@Param('id') id: number) {
     return this.clasesService.deleteClase(id);
   }
-
-  // @Post()
-  // create(@Body() createClaseDto: CreateClaseDto) {
-  //   return this.clasesService.create(createClaseDto);
-  // }
-
-  // @Get()
-  // findAll() {
-  //   return this.clasesService.findAll();
-  // }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.clasesService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateClaseDto: UpdateClaseDto) {
-  //   return this.clasesService.update(+id, updateClaseDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.clasesService.remove(+id);
-  // }
 }

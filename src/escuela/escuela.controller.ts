@@ -1,34 +1,47 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  // Patch,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { EscuelaService } from './escuela.service';
 import { CreateEscuelaDto } from './dto/create-escuela.dto';
 import { UpdateEscuelaDto } from './dto/update-escuela.dto';
+import { Escuela } from './entities/escuela.entity';
 
 @Controller('escuela')
 export class EscuelaController {
   constructor(private readonly escuelaService: EscuelaService) {}
 
-  @Post()
-  create(@Body() createEscuelaDto: CreateEscuelaDto) {
-    return this.escuelaService.create(createEscuelaDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.escuelaService.findAll();
+  @Get('getAll')
+  async getAll(): Promise<Escuela[]> {
+    return await this.escuelaService.findAllEscuelas();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.escuelaService.findOne(+id);
+  async getById(@Param('id') id: number): Promise<Escuela> {
+    return await this.escuelaService.findOneEscuela(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEscuelaDto: UpdateEscuelaDto) {
-    return this.escuelaService.update(+id, updateEscuelaDto);
+  @Post('create')
+  createEscuela(@Body() createEscuelaDto: CreateEscuelaDto): Promise<boolean> {
+    return this.escuelaService.createEscuela(createEscuelaDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.escuelaService.remove(+id);
+  @Put('update/:id')
+  async updateEscuela(
+    @Param('id') id,
+    @Body() updateEscuelaDto: UpdateEscuelaDto,
+  ) {
+    return this.escuelaService.updateEscuela(updateEscuelaDto, id);
+  }
+
+  @Delete('remove/:id')
+  removeEscuela(@Param('id') id: number) {
+    return this.escuelaService.deleteEscuela(id);
   }
 }
