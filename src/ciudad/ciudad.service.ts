@@ -14,17 +14,24 @@ export class CiudadService {
   ) {}
 
   async findAllRaw(): Promise<Ciudad[]> {
-    this.ciudades = [];
-    const datos = await this.ciudadRepository.query('select * from ciudad');
-
-    datos.forEach((element) => {
-      const ciudad: Ciudad = new Ciudad(element['nombre']);
-      this.ciudades.push(ciudad); // No necesitas usar { ciudad }
-    });
-
-    return this.ciudades; // Agrega esta línea para devolver la lista de ciudades
+    try {
+      this.ciudades = [];
+      const datos = await this.ciudadRepository.query('select * from ciudad');
+      datos.forEach((element) => {
+        const ciudad: Ciudad = new Ciudad(element['nombre']);
+        this.ciudades.push(ciudad); // No necesitas usar { ciudad }
+      });
+      return this.ciudades; // Agrega esta línea para devolver la lista de ciudades
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.CONFLICT,
+          error: 'Error en Ciudad -' + error,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
-
   async findAllOrm(): Promise<Ciudad[]> {
     return await this.ciudadRepository.find();
   }
@@ -64,15 +71,25 @@ export class CiudadService {
   }
 
   async updateCity(ciudadDTO: CiudadDTO, id: number): Promise<string> {
-    const criterio: FindOneOptions = { where: { id: id } };
-    let ciudad: Ciudad = await this.ciudadRepository.findOne(criterio);
+    try {
+      const criterio: FindOneOptions = { where: { id: id } };
+      let ciudad: Ciudad = await this.ciudadRepository.findOne(criterio);
 
-    if (!ciudad) throw Error('no se encontro la ciudad');
-    else {
-      const ciudadVieja = ciudad.getNombre();
-      ciudad.setNombre(ciudadDTO.nombre);
-      ciudad = await this.ciudadRepository.save(ciudad);
-      return `OK ${ciudadVieja} ---> ${ciudadDTO.nombre}`;
+      if (!ciudad) throw Error('no se encontro la ciudad');
+      else {
+        const ciudadVieja = ciudad.getNombre();
+        ciudad.setNombre(ciudadDTO.nombre);
+        ciudad = await this.ciudadRepository.save(ciudad);
+        return `OK ${ciudadVieja} ---> ${ciudadDTO.nombre}`;
+      }
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: 'Error en ciudad - ' + error,
+        },
+        HttpStatus.NOT_FOUND,
+      );
     }
   }
 
