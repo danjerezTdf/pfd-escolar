@@ -12,7 +12,7 @@ export class EscuelaService {
     private escuelaRepository: Repository<Escuela>,
   ) {}
 
-  async findAllEscuelas(): Promise<Clase[]> {
+  async findAllEscuelas(): Promise<Escuela[]> {
     return await this.escuelaRepository.find();
   }
   create(createEscuelaDto: CreateEscuelaDto) {
