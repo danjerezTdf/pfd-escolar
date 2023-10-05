@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { Escuela } from 'src/escuela/entities/escuela.entity';
 import { Estudiante } from 'src/estudiantes/entities/estudiante.entity';
+import { EstudianteClase } from 'src/estudiantes/entities/estudiante_clase.entity';
 import { Profesor } from 'src/profesor/entities/profesor.entity';
 import {
   Column,
@@ -9,6 +10,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -34,6 +36,12 @@ export class Clase {
   @ManyToMany(() => Estudiante, (estudiantes) => estudiantes.clases)
   @JoinTable({ name: 'clase_estudiante' })
   estudiantes: Estudiante[];
+
+  @OneToMany(
+    () => EstudianteClase,
+    (estudianteclases) => estudianteclases.clase,
+  )
+  estudianteClases: EstudianteClase[];
 
   //constructor
   constructor(nombre: string) {

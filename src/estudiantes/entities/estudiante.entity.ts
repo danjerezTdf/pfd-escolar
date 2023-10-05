@@ -4,15 +4,18 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Clase } from 'src/clases/entities/clase.entity';
+import { EstudianteClase } from './estudiante_clase.entity';
 
 @Entity()
 export class Estudiante {
   //atributo
   @PrimaryGeneratedColumn()
   id: number;
+
   @Column()
   @IsString()
   @IsNotEmpty()
@@ -31,6 +34,12 @@ export class Estudiante {
   @ManyToMany(() => Clase, (clases) => clases.estudiantes)
   @JoinTable({ name: 'clase_estudiante' })
   clases: Clase[];
+
+  @OneToMany(
+    () => EstudianteClase,
+    (estudianteclases) => estudianteclases.estudiante,
+  )
+  estudianteClases: EstudianteClase[];
 
   //constructor
   constructor(nombre: string, apellido: string, fechaNacimiento: Date) {
