@@ -28,18 +28,18 @@ export class CiudadController {
   async getId(@Param('id') id: number): Promise<Ciudad> {
     return await this.ciudadService.findCityById(id);
   }
-  @Post('crear')
+  @Post('create')
   async create(@Body() body) {
     return await this.ciudadService.createCity(body);
   }
-  @Put('actualizar/:id')
+  @Put('update/:id')
   async actualizarCiudadId(
     @Body() ciudadDTO: CiudadDTO,
     @Param('id') id: number,
   ) {
     return await this.ciudadService.updateCity(ciudadDTO, id);
   }
-  @Delete('eliminiar/:id')
+  @Delete('remove/:id')
   async eliminiarCiudadId(@Param('id') id: number) {
     return await this.ciudadService.deleteCityById(id);
   }

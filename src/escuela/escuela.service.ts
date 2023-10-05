@@ -64,6 +64,8 @@ export class EscuelaService {
 
         if (EscuelaDto.nombre != null && EscuelaDto.nombre != undefined)
           escuela.setNombre(EscuelaDto.nombre);
+        if (EscuelaDto.domicilio != null && EscuelaDto.domicilio != undefined)
+          escuela.setdomicilio(EscuelaDto.domicilio);
 
         escuela = await this.escuelaRepository.save(escuela);
         return `OK - ${escuelaVieja} --> ${EscuelaDto.nombre}`;

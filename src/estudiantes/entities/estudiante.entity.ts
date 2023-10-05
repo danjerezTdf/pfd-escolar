@@ -3,35 +3,52 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Estudiante {
+  //atributo
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
   @IsString()
   @IsNotEmpty()
-  apellidoNombre: string;
+  nombre: string;
 
   @Column()
   @IsString()
   @IsNotEmpty()
-  fechaNacimiento: string;
+  apellido: string;
 
-  constructor(apellidoNombre: string, fechaNacimiento: string) {
-    this.apellidoNombre = apellidoNombre;
-    this.fechaNacimiento = fechaNacimiento;
+  @Column()
+  @IsString()
+  @IsNotEmpty()
+  fecha_Nacimiento: Date;
+  //relaciones
+
+  //constructor
+  constructor(nombre: string, apellido: string, fechaNacimiento: Date) {
+    this.nombre = nombre;
+    this.apellido = apellido;
+    this.fecha_Nacimiento = fechaNacimiento;
   }
+
+  //geters y seters
   public getId(): number {
     return this.id;
   }
-  public getNombreApellido(): string {
-    return this.apellidoNombre;
+  public getNombre(): string {
+    return this.nombre;
   }
-  public setNombreApellido(nombreApellido: string) {
-    this.apellidoNombre = nombreApellido;
+  public setNombre(nombre: string) {
+    this.nombre = nombre;
   }
-  public getFechaNacimiento(): string {
-    return this.fechaNacimiento;
+  public getApellido(): string {
+    return this.apellido;
   }
-  public setFechaNacimiento(fechaNacimiento: string) {
-    this.fechaNacimiento = fechaNacimiento;
+  public setApellido(apellido: string) {
+    this.apellido = apellido;
+  }
+  public getFechaNacimiento(): Date {
+    return this.fecha_Nacimiento;
+  }
+  public setFechaNacimiento(fechaNacimiento: Date) {
+    this.fecha_Nacimiento = fechaNacimiento;
   }
 }

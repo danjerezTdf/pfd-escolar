@@ -36,7 +36,7 @@ export class ProfesorController {
     return this.profesorService.updateTeacher(profesorDto, id);
   }
 
-  @Delete(':id')
+  @Delete('remove/:id')
   async remove(@Param('id') id: number): Promise<Profesor> {
     return this.profesorService.removeTeacher(id);
   }

@@ -57,16 +57,29 @@ export class ProfesorService {
       const criterio: FindOneOptions = { where: { id: id } };
       let profesor: Profesor = await this.profesorRepository.findOne(criterio);
 
-      if (!profesor)
-        throw new Error('no se pudo encontrar el profesor a modificar ');
-      else {
-        const profesorViejo = profesor.getNombre();
-
-        if (profesorDto.nombre != null && profesorDto.nombre != undefined)
+      if (!profesor) {
+        throw Error('No se encontró el profesor');
+      } else {
+        // Verifica si el DTO contiene un nombre
+        if (profesorDto.nombre) {
+          const nombreViejo = profesor.getNombre();
           profesor.setNombre(profesorDto.nombre);
+          profesor = await this.profesorRepository.save(profesor);
 
-        profesor = await this.profesorRepository.save(profesor);
-        return `OK - ${profesorViejo} --> ${profesorDto.nombre}`;
+          let mensaje = `Nombre actualizado: ${nombreViejo} --> ${profesorDto.nombre}`;
+
+          // Verifica si el DTO contiene un apellido
+          if (profesorDto.apellido) {
+            const apellidoViejo = profesor.getApellido();
+            profesor.setApellido(profesorDto.apellido);
+            profesor = await this.profesorRepository.save(profesor);
+            mensaje += `, Apellido actualizado: ${apellidoViejo} --> ${profesorDto.apellido}`;
+          }
+
+          return `OK - ${mensaje}`;
+        } else {
+          throw Error('El DTO no contiene un nombre válido');
+        }
       }
     } catch (error) {
       throw new HttpException(
