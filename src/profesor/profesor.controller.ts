@@ -38,6 +38,6 @@ export class ProfesorController {
 
   @Delete('remove/:id')
   async remove(@Param('id') id: number): Promise<Profesor> {
-    return this.profesorService.removeTeacher(id);
+    return this.profesorService.deleteTeacher(id);
   }
 }

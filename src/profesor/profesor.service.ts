@@ -92,7 +92,7 @@ export class ProfesorService {
     }
   }
 
-  async removeTeacher(id: number): Promise<any> {
+  async deleteTeacher(id: number): Promise<any> {
     try {
       const criterio: FindOneOptions = { where: { id: id } };
       const profesor: Profesor = await this.profesorRepository.findOne(

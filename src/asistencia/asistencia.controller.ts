@@ -1,34 +1,41 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { AsistenciaService } from './asistencia.service';
-import { CreateAsistenciaDto } from './dto/create-asistencia.dto';
-import { UpdateAsistenciaDto } from './dto/update-asistencia.dto';
+import { AsistenciaDto } from './dto/asistencia.dto';
 
 @Controller('asistencia')
 export class AsistenciaController {
   constructor(private readonly asistenciaService: AsistenciaService) {}
 
-  @Post()
-  create(@Body() createAsistenciaDto: CreateAsistenciaDto) {
-    return this.asistenciaService.create(createAsistenciaDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.asistenciaService.findAll();
+  @Get('getAll')
+  async findAll(): Promise<AsistenciaDto[]> {
+    return this.asistenciaService.findAllAttendance();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.asistenciaService.findOne(+id);
+  async findOne(@Param('id') id: string): Promise<AsistenciaDto> {
+    return this.asistenciaService.findOneAttendance(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAsistenciaDto: UpdateAsistenciaDto) {
-    return this.asistenciaService.update(+id, updateAsistenciaDto);
+  @Post('create')
+  async create(@Body() createAsistenciaDto: AsistenciaDto): Promise<any> {
+    return await this.asistenciaService.createAttendance(createAsistenciaDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.asistenciaService.remove(+id);
+  @Put('update/:id')
+  async update(@Param('id') id: string, @Body() AsistenciaDto: AsistenciaDto) {
+    return this.asistenciaService.updateAttendance(+id, AsistenciaDto);
+  }
+
+  @Delete('remove/:id')
+  async remove(@Param('id') id: string) {
+    return this.asistenciaService.deleteAttendance(+id);
   }
 }

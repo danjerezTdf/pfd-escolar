@@ -5,9 +5,17 @@ import { Estudiante } from './entities/estudiante.entity';
 import { Clase } from 'src/clases/entities/clase.entity';
 import { EstudianteClase } from './entities/estudiante_clase.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CiudadEstudiante } from 'src/ciudad/entities/ciudad_estudiante.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Estudiante, Clase, EstudianteClase])],
+  imports: [
+    TypeOrmModule.forFeature([
+      Estudiante,
+      Clase,
+      EstudianteClase,
+      CiudadEstudiante,
+    ]),
+  ],
   controllers: [EstudiantesController],
   providers: [EstudiantesService],
 })
