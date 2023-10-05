@@ -1,5 +1,12 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Clase } from 'src/clases/entities/clase.entity';
 
 @Entity()
 export class Estudiante {
@@ -17,10 +24,13 @@ export class Estudiante {
   apellido: string;
 
   @Column()
-  @IsString()
   @IsNotEmpty()
   fecha_Nacimiento: Date;
+
   //relaciones
+  @ManyToMany(() => Clase, (clases) => clases.estudiantes)
+  @JoinTable({ name: 'clase_estudiante' })
+  clases: Clase[];
 
   //constructor
   constructor(nombre: string, apellido: string, fechaNacimiento: Date) {

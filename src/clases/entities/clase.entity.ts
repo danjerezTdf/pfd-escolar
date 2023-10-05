@@ -1,10 +1,13 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { Escuela } from 'src/escuela/entities/escuela.entity';
+import { Estudiante } from 'src/estudiantes/entities/estudiante.entity';
 import { Profesor } from 'src/profesor/entities/profesor.entity';
 import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -15,8 +18,8 @@ export class Clase {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
-  @IsString()
-  @IsNotEmpty()
+  // @IsString()
+  // @IsNotEmpty()
   nombre: string;
 
   // relaciones
@@ -27,6 +30,10 @@ export class Clase {
   @ManyToOne(() => Escuela, (escuela) => escuela.clases)
   @JoinColumn({ name: 'fk_id_escuela' })
   escuela: Escuela;
+
+  @ManyToMany(() => Estudiante, (estudiantes) => estudiantes.clases)
+  @JoinTable({ name: 'clase_estudiante' })
+  estudiantes: Estudiante[];
 
   //constructor
   constructor(nombre: string) {

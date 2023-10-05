@@ -105,7 +105,7 @@ export class EstudiantesService {
       const estudiante: Estudiante = await this.estudianteRepository.findOne(
         criterio,
       );
-      if (!estudiante) throw new Error('no se puedo eliminar estudiante ');
+      if (!estudiante) throw new Error('no se puedeliminar estudiante ');
       else {
         await this.estudianteRepository.remove(estudiante);
         return { id: id, message: 'se elimino exitosamente' };
