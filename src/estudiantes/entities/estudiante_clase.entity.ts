@@ -20,11 +20,6 @@ export class EstudianteClase {
   @PrimaryColumn()
   claseId: number;
 
-  constructor(estudianteId: number, claseId: number) {
-    this.estudianteId = estudianteId;
-    this.claseId = claseId;
-  }
-
   @ManyToOne(() => Estudiante, (estudiante) => estudiante.estudianteClases)
   @JoinColumn()
   estudiante: Estudiante;
@@ -35,4 +30,9 @@ export class EstudianteClase {
 
   @OneToMany(() => Asistencia, (asistencia) => asistencia.estudianteClase)
   asistencia: Asistencia;
+
+  constructor(estudiante: number, clase: number) {
+    this.estudianteId = estudiante;
+    this.claseId = clase;
+  }
 }

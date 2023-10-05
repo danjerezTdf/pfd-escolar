@@ -1,34 +1,24 @@
-import { EstudianteClase } from 'src/estudiantes/entities/estudiante_clase.entity';
 import {
-  CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
-  PrimaryColumn,
+  JoinColumn,
+  CreateDateColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+import { EstudianteClase } from 'src/estudiantes/entities/estudiante_clase.entity';
 
-@Entity({ name: 'asistencia' })
+@Entity('asistencia')
 export class Asistencia {
-  //atributos
-  @PrimaryColumn({ name: 'estudianteClaseId' })
-  claseId: number;
-  @PrimaryColumn({ name: 'estudianteClaseEstuadianteId' })
-  estudianteId: number;
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @CreateDateColumn()
   fecha: Date;
 
-  //relaciones
   @ManyToOne(
     () => EstudianteClase,
     (estudianteClase) => estudianteClase.asistencia,
   )
   @JoinColumn()
   estudianteClase: EstudianteClase;
-
-  //constructor
-  constructor(claseId: number, estudianteId: number) {
-    this.claseId = claseId;
-    this.estudianteId = estudianteId;
-  }
-  //geter y seter
 }
