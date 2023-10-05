@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Clase } from 'src/clases/entities/clase.entity';
 import { EstudianteClase } from './estudiante_clase.entity';
+import { CiudadEstudiante } from 'src/ciudad/entities/ciudad_estudiante.entity';
 
 @Entity()
 export class Estudiante {
@@ -40,6 +41,9 @@ export class Estudiante {
     (estudianteclases) => estudianteclases.estudiante,
   )
   estudianteClases: EstudianteClase[];
+
+  @OneToMany(() => CiudadEstudiante, (domicilios) => domicilios.estudiante)
+  domicilios: CiudadEstudiante[];
 
   //constructor
   constructor(nombre: string, apellido: string, fechaNacimiento: Date) {

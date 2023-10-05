@@ -20,8 +20,8 @@ export class Clase {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
-  // @IsString()
-  // @IsNotEmpty()
+  @IsString()
+  @IsNotEmpty()
   nombre: string;
 
   // relaciones

@@ -2,6 +2,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { CiudadProfesor } from './ciudad_profesor.entity';
 import { Escuela } from 'src/escuela/entities/escuela.entity';
+import { CiudadEstudiante } from './ciudad_estudiante.entity';
 
 //atributos
 @Entity({ name: 'ciudad' })
@@ -18,6 +19,9 @@ export class Ciudad {
 
   @OneToMany(() => Escuela, (escuela) => escuela.ciudad)
   public escuelas: Escuela[];
+
+  @OneToMany(() => CiudadEstudiante, (estudiante) => estudiante.ciudad)
+  estudiante: CiudadEstudiante[];
 
   //constructor
   constructor(nombre: string) {

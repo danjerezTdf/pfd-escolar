@@ -9,15 +9,15 @@ export class Profesor {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
-  // @IsString()
-  // @IsNotEmpty()
+  @IsString()
+  @IsNotEmpty()
   nombre: string;
   @Column()
-  // @IsString()
-  // @IsNotEmpty()
+  @IsString()
+  @IsNotEmpty()
   apellido: string;
-  //relaciones
 
+  //relaciones
   @OneToMany(() => CiudadProfesor, (domicilios) => domicilios.profesor)
   domicilios: CiudadProfesor[];
 
