@@ -1,5 +1,6 @@
 //import
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { CiudadProfesor } from './ciudad_profesor.entity';
 
 //atributos
 @Entity({ name: 'ciudad' })
@@ -11,7 +12,8 @@ export class Ciudad {
   nombre: string;
 
   //relaciones
-
+  @OneToMany(() => CiudadProfesor, (domicilios) => domicilios.ciudad)
+  domicilios: CiudadProfesor[];
   //constructor
   constructor(nombre: string) {
     this.nombre = nombre;

@@ -2,6 +2,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Escuela {
+  //atributos
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
@@ -12,11 +13,14 @@ export class Escuela {
   @IsString()
   @IsNotEmpty()
   domicilio: string;
+  //relaciones
 
+  //constructor
   constructor(nombre: string, domicilio: string) {
     this.nombre = nombre;
     this.domicilio = domicilio;
   }
+  //geter y seter
   public getId(): number {
     return this.id;
   }

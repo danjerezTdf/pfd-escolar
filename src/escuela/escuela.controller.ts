@@ -9,34 +9,31 @@ import {
   Put,
 } from '@nestjs/common';
 import { EscuelaService } from './escuela.service';
-import { CreateEscuelaDto } from './dto/create-escuela.dto';
-import { UpdateEscuelaDto } from './dto/update-escuela.dto';
+import { EscuelaDto } from './dto/escuela.dto';
 import { Escuela } from './entities/escuela.entity';
 
 @Controller('escuela')
 export class EscuelaController {
-  // constructor(private readonly escuelaService: EscuelaService) {}
-  // @Get('getAll')
-  // async getAll(): Promise<Escuela[]> {
-  //   return await this.escuelaService.findAllEscuelas();
-  // }
-  // @Get(':id')
-  // async getById(@Param('id') id: number): Promise<Escuela> {
-  //   return await this.escuelaService.findOneEscuela(id);
-  // }
-  // @Post('create')
-  // createEscuela(@Body() createEscuelaDto: CreateEscuelaDto): Promise<boolean> {
-  //   return this.escuelaService.createEscuela(createEscuelaDto);
-  // }
-  // @Put('update/:id')
-  // async updateEscuela(
-  //   @Param('id') id,
-  //   @Body() updateEscuelaDto: UpdateEscuelaDto,
-  // ) {
-  //   return this.escuelaService.updateEscuela(updateEscuelaDto, id);
-  // }
-  // @Delete('remove/:id')
-  // removeEscuela(@Param('id') id: number) {
-  //   return this.escuelaService.deleteEscuela(id);
-  // }
+  constructor(private readonly escuelaService: EscuelaService) {}
+
+  @Get('getAll')
+  async getAll(): Promise<Escuela[]> {
+    return await this.escuelaService.findAllSchools();
+  }
+  @Get(':id')
+  async getById(@Param('id') id: number): Promise<EscuelaDto> {
+    return await this.escuelaService.findOneSchool(id);
+  }
+  @Post('create')
+  async create(@Body() EscuelaDto: EscuelaDto): Promise<boolean> {
+    return this.escuelaService.createSchool(EscuelaDto);
+  }
+  @Put('update/:id')
+  async update(@Param('id') id, @Body() EscuelaDto: EscuelaDto) {
+    return this.escuelaService.updateSchool(EscuelaDto, id);
+  }
+  @Delete('remove/:id')
+  async remove(@Param('id') id: number): Promise<Escuela> {
+    return this.escuelaService.deleteSchool(id);
+  }
 }
