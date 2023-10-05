@@ -22,15 +22,15 @@ export class CiudadController {
 
   @Get('orm')
   async getAllOrm(): Promise<Ciudad[]> {
-    return await this.ciudadService.findAllOrm();
+    return await this.ciudadService.findAllCityOrm();
   }
   @Get(':id')
   async getId(@Param('id') id: number): Promise<Ciudad> {
-    return await this.ciudadService.findById(id);
+    return await this.ciudadService.findCityById(id);
   }
   @Post('crear')
   async create(@Body() body) {
-    return await this.ciudadService.create(body);
+    return await this.ciudadService.createCity(body);
   }
   @Put('actualizar/:id')
   async actualizarCiudadId(

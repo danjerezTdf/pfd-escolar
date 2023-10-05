@@ -7,12 +7,12 @@ import { CiudadDTO } from './dto/ciudad.dto';
 @Injectable()
 export class CiudadService {
   private ciudades: Ciudad[] = [];
-
+  //constructor
   constructor(
     @InjectRepository(Ciudad)
     private readonly ciudadRepository: Repository<Ciudad>,
   ) {}
-
+  //buscar todas
   async findAllRaw(): Promise<Ciudad[]> {
     try {
       this.ciudades = [];
@@ -32,11 +32,12 @@ export class CiudadService {
       );
     }
   }
-  async findAllOrm(): Promise<Ciudad[]> {
+  //buscar todas Orm
+  async findAllCityOrm(): Promise<Ciudad[]> {
     return await this.ciudadRepository.find();
   }
-
-  async findById(id: number): Promise<Ciudad> {
+  //buscar por id
+  async findCityById(id: number): Promise<Ciudad> {
     try {
       const criterio: FindOneOptions = { where: { id: id } };
       const ciudad: Ciudad = await this.ciudadRepository.findOne(criterio);
@@ -52,7 +53,8 @@ export class CiudadService {
       );
     }
   }
-  async create(ciudadDTO: CiudadDTO): Promise<CiudadDTO> {
+  //crear
+  async createCity(ciudadDTO: CiudadDTO): Promise<CiudadDTO> {
     try {
       const ciudad = await this.ciudadRepository.save(
         new Ciudad(ciudadDTO.nombre),
@@ -69,7 +71,7 @@ export class CiudadService {
       );
     }
   }
-
+  //actualizar
   async updateCity(ciudadDTO: CiudadDTO, id: number): Promise<string> {
     try {
       const criterio: FindOneOptions = { where: { id: id } };
@@ -92,7 +94,7 @@ export class CiudadService {
       );
     }
   }
-
+  //borrar por ID
   async deleteCityById(id: number): Promise<any> {
     try {
       const criterio: FindOneOptions = { where: { id: id } };
