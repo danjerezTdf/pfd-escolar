@@ -3,6 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'profesor' })
 export class Profesor {
+  //atributos
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
@@ -13,11 +14,15 @@ export class Profesor {
   @IsString()
   @IsNotEmpty()
   apellido: string;
+  //relaciones
 
+  // constructor
   constructor(nombre: string, apellido: string) {
     this.nombre = nombre;
     this.apellido = apellido;
   }
+
+  //geter y seter
   public getId(): number {
     return this.id;
   }
